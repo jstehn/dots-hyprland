@@ -290,6 +290,14 @@ Singleton {
                 property int full: 101
                 property bool automaticSuspend: true
                 property int suspend: 3
+                property bool chargeLimitEnabled: true
+                property int chargeLimit: 80
+            }
+
+            property JsonObject idle: JsonObject {
+                property int lockTimeout: 5       // minutes
+                property int screenOffTimeout: 10 // minutes
+                property int suspendTimeout: 15   // minutes (0 = disabled)
             }
 
             property JsonObject calendar: JsonObject {
