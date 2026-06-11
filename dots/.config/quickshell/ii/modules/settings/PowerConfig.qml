@@ -59,7 +59,7 @@ ContentPage {
                 }
             }
             ConfigSpinBox {
-                icon: "monitor_off"
+                icon: "monitor"
                 text: Translation.tr("Screen off after (min)")
                 value: Config.options.idle.screenOffTimeout
                 from: 1
