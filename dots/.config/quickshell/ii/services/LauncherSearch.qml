@@ -249,7 +249,7 @@ Singleton {
                 verb: Translation.tr("Open"),
                 execute: () => {
                     if (!entry.runInTerminal)
-                        entry.execute();
+                        Quickshell.execDetached(["uwsm", "app", "--", ...entry.command]);
                     else {
                         // Probably needs more proper escaping, but this will do for now
                         Quickshell.execDetached(["bash", '-c', `${Config.options.apps.terminal} -e '${StringUtils.shellSingleQuoteEscape(entry.command.join(' '))}'`]);
@@ -266,7 +266,7 @@ Singleton {
                         iconType: LauncherSearchResult.IconType.System,
                         execute: () => {
                             if (!action.runInTerminal)
-                                action.execute();
+                                Quickshell.execDetached(["uwsm", "app", "--", ...action.command]);
                             else {
                                 Quickshell.execDetached(["bash", '-c', `${Config.options.apps.terminal} -e '${StringUtils.shellSingleQuoteEscape(action.command.join(' '))}'`]);
                             }
