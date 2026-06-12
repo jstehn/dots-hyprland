@@ -184,4 +184,25 @@ Singleton {
         function onScreenOffTimeoutChanged() { hypridleTimer.restart(); }
         function onSuspendTimeoutChanged() { hypridleTimer.restart(); }
     }
+
+    // Apply Hyprland perf optimizations when power profile changes (wiki.hypr.land/…/Performance/).
+    // resetMany restores whatever the user had configured; setMany overrides only while in Power Saver.
+    Connections {
+        target: PowerProfiles
+        function onProfileChanged() {
+            if (PowerProfiles.profile === PowerProfile.PowerSaver) {
+                HyprlandConfig.setMany({
+                    "decoration:blur:enabled": 0,
+                    "decoration:shadow:enabled": 0,
+                    "animations:enabled": 0,
+                });
+            } else {
+                HyprlandConfig.resetMany([
+                    "decoration:blur:enabled",
+                    "decoration:shadow:enabled",
+                    "animations:enabled",
+                ]);
+            }
+        }
+    }
 }
