@@ -36,6 +36,12 @@ local function swapcol_or_move_monitor(dir)
 
     if at_edge then
         hl.dispatch(hl.dsp.window.move({ monitor = dir }))
+        -- Push to the near edge of the new monitor: entering from right → leftmost column,
+        -- entering from left → rightmost column. wrap_swapcol=false makes extras no-ops.
+        local opposite = dir == "r" and "l" or "r"
+        for _ = 1, 50 do
+            hl.dispatch(hl.dsp.layout("swapcol " .. opposite))
+        end
     else
         hl.dispatch(hl.dsp.layout("swapcol " .. dir))
     end
