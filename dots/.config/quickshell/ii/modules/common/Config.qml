@@ -212,6 +212,9 @@ Singleton {
                 }
                 property string wallpaperPath: ""
                 property string thumbnailPath: ""
+                property JsonObject bingDailyWallpaper: JsonObject {
+                    property bool enabled: false
+                }
                 property bool hideWhenFullscreen: true
                 property JsonObject parallax: JsonObject {
                     property bool vertical: false

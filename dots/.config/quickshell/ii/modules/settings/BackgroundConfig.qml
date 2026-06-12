@@ -1,11 +1,30 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 
 ContentPage {
     forceWidth: true
+
+    ContentSection {
+        icon: "partly_cloudy_day"
+        title: Translation.tr("Bing Daily Wallpaper")
+
+        ConfigSwitch {
+            buttonIcon: "check"
+            text: Translation.tr("Enable")
+            checked: Config.options.background?.bingDailyWallpaper?.enabled ?? false
+            onCheckedChanged: {
+                Config.options.background.bingDailyWallpaper.enabled = checked;
+                if (checked) {
+                    Quickshell.execDetached(["bash", "-c",
+                        "$HOME/.config/quickshell/ii/scripts/colors/random/random_bing_wall.sh --force"])
+                }
+            }
+        }
+    }
 
     ContentSection {
         icon: "sync_alt"
