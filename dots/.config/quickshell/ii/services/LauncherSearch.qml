@@ -137,6 +137,17 @@ Singleton {
         return StringUtils.stringListContainsSubstring(entry.toLowerCase(), unsafeKeywords);
     }
 
+    onQueryChanged: {
+        root.mathResult = "";
+        if (root.query === "" ||
+            root.query.startsWith(Config.options.search.prefix.clipboard) ||
+            root.query.startsWith(Config.options.search.prefix.emojis)) {
+            nonAppResultsTimer.stop();
+        } else {
+            nonAppResultsTimer.restart();
+        }
+    }
+
     Timer {
         id: nonAppResultsTimer
         interval: Config.options.search.nonAppResultDelay
@@ -159,7 +170,9 @@ Singleton {
         }
         stdout: SplitParser {
             onRead: data => {
-                root.mathResult = data;
+                const trimmed = data.trim();
+                if (trimmed !== "")
+                    root.mathResult = trimmed;
             }
         }
     }
@@ -227,7 +240,6 @@ Singleton {
         }
 
         ////////////////// Init ///////////////////
-        nonAppResultsTimer.restart();
         const mathResultObject = resultComp.createObject(null, {
             name: root.mathResult,
             verb: Translation.tr("Copy"),
