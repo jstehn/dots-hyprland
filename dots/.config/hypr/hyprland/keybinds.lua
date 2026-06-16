@@ -91,7 +91,9 @@ hl.bind("SUPER + SHIFT + ALT + R", hl.dsp.exec_cmd(qsScripts .. "/videos/record.
     { locked = true, description = "Utilities: Record screen (with sound)" })
 --# Screenshot
 local grimhyprctl = "grim -o \"$(hyprctl activeworkspace -j | jq -r '.monitor')\""
-hl.bind("Print", hl.dsp.exec_cmd(
+hl.bind("Print", hl.dsp.exec_cmd("grimblast --freeze copy area"),
+    { locked = true, description = "Utilities: Screenshot region (freeze) >> clipboard" })
+hl.bind("SUPER + Print", hl.dsp.exec_cmd(
     "mkdir -p \"$(xdg-user-dir PICTURES)/Screenshots\" && grimblast --freeze save area - | satty --filename - --output-filename \"$(xdg-user-dir PICTURES)/Screenshots/Screenshot_$(date '+%Y-%m-%d_%H.%M.%S').png\""
 ), { locked = true, description = "Utilities: Screenshot region (freeze) >> annotate >> save/clipboard" })
 hl.bind("CTRL + Print", hl.dsp.exec_cmd(grimhyprctl .. " - | wl-copy"),
