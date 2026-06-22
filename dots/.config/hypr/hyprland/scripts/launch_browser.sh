@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Launch the user's configured default browser (xdg-settings); fall back to the
+# Launch the user's default browser, resolved the same way URLs are actually
+# opened (the https:// scheme handler), since `xdg-settings
+# get default-web-browser` can point at an unrelated PWA. Falls back to the
 # first available browser from the provided list if no default is set.
-default="$(xdg-settings get default-web-browser 2>/dev/null)"
+default="$(xdg-mime query default x-scheme-handler/https 2>/dev/null)"
 if [[ -n "$default" ]] && command -v gtk-launch >/dev/null 2>&1; then
     gtk-launch "${default%.desktop}" && exit
 fi
