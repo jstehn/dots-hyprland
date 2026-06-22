@@ -12,6 +12,9 @@ QuickToggleModel {
 
     readonly property string unit: "wg-quick-wg0.service"
 
+    // Hidden by default until checkUnitProc confirms the unit exists, since
+    // this config is shared across hosts that don't all define wg-quick.
+    available: false
     toggled: false
     icon: "vpn_lock"
 
@@ -26,8 +29,17 @@ QuickToggleModel {
     }
 
     Process {
-        id: checkActiveProc
+        id: checkUnitProc
         running: true
+        command: ["systemctl", "list-unit-files", "--no-legend", root.unit]
+        onExited: (exitCode, exitStatus) => {
+            root.available = exitCode === 0
+        }
+    }
+
+    Process {
+        id: checkActiveProc
+        running: root.available
         command: ["systemctl", "is-active", root.unit]
         stdout: StdioCollector {
             id: activeCollector
@@ -41,7 +53,7 @@ QuickToggleModel {
         // No D-Bus signal for wg-quick state, so poll occasionally in case the
         // tunnel was toggled outside the shell (e.g. from a terminal).
         interval: 5000
-        running: true
+        running: root.available
         repeat: true
         onTriggered: checkActiveProc.running = true
     }

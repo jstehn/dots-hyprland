@@ -10,4 +10,5 @@ AndroidQuickToggleButton {
     id: root
 
     toggleModel: WireGuardToggle {}
+    visible: available
 }
