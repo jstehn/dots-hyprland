@@ -66,9 +66,7 @@ hl.config({
             window_gap = 4,
             monitor_gap = 5,
             respect_gaps = true
-        },
-
-        layout = "scrolling"
+        }
     },
     decoration = {
         -- 2 = circle, higher = squircle, 4 = very obvious squircle
@@ -109,11 +107,11 @@ hl.config({
     animations = {
         enabled = true
     },
-    scrolling = {
-        fullscreen_on_one_column = true,
-        column_width = 0.5,
-        explicit_column_widths = "0.33,0.5,0.67,1.0",
-        follow_focus = true,
+    dwindle = {
+        preserve_split = true,
+        smart_split = false,
+        smart_resizing = false
+        -- precise_mouse_move = true,
     },
 })
 -- Curves

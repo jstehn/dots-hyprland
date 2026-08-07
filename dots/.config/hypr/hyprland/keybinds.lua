@@ -183,10 +183,10 @@ hl.bind("ALT + F4",
 hl.bind("SUPER + Q", hl.dsp.window.close(), { description = "Window: Close" })
 hl.bind("SUPER + SHIFT + ALT + Q", hl.dsp.exec_cmd("hyprctl kill"), { description = "Window: Forcefully zap a window" })
 
---# Column resize (scrolling layout)
---#/# binde = SUPER, ;/', -- Cycle column width
-hl.bind("SUPER + Semicolon", hl.dsp.layout("colresize -conf"), { repeating = true, description = "Layout: Column width smaller" })
-hl.bind("SUPER + Apostrophe", hl.dsp.layout("colresize +conf"), { repeating = true, description = "Layout: Column width larger" })
+--# Window split ratio
+--#/# binde = SUPER, ;/',, -- Adjust split ratio
+hl.bind("SUPER + Semicolon", hl.dsp.layout("splitratio -0.1"), { repeating = true })
+hl.bind("SUPER + Apostrophe", hl.dsp.layout("splitratio +0.1"), { repeating = true })
 --# Positioning mode
 hl.bind("SUPER + ALT + Space", hl.dsp.window.float({ action = "toggle" }), { description = "Window: Float/Tile" })
 hl.bind("SUPER + D", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }),
